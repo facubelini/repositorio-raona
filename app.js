@@ -36,6 +36,7 @@ const state = {
   projects:        [],
   activeClient:    'Todos',
   activeSolution:  'Todos',
+  activeTech:      'Todos',
   search:          '',
   failedAttempts:  0,
   lockoutUntil:    null,
@@ -43,6 +44,7 @@ const state = {
 
 let _carouselIdx  = 0;
 let _carouselImgs = [];
+let _pfQuill      = null;
 
 /* ════════════════════════════════════════════════════════════════════
    SESIÓN Y CONFIG
@@ -193,6 +195,12 @@ function newId() {
 
 function showError(el, msg) { el.textContent = msg; el.hidden = false; }
 
+function stripHtml(html) {
+  const div = document.createElement('div');
+  div.innerHTML = html || '';
+  return div.textContent || '';
+}
+
 /* ════════════════════════════════════════════════════════════════════
    CARGA DE DATOS
    ════════════════════════════════════════════════════════════════════ */
@@ -228,10 +236,12 @@ function renderStats() {
 function renderFilters() {
   const clientEl   = document.getElementById('client-filters');
   const solutionEl = document.getElementById('solution-filters');
+  const techEl      = document.getElementById('tech-filters');
   const addBtn      = document.getElementById('add-project-btn');
 
   const clientes   = ['Todos', ...new Set(state.projects.map(p => p.cliente).filter(Boolean))];
   const soluciones = ['Todos', ...new Set(state.projects.map(p => p.solucion).filter(Boolean))];
+  const tecnologias = ['Todos', ...new Set(state.projects.flatMap(p => p.tecnologias || []).filter(Boolean))];
 
   clientEl.innerHTML = clientes.map(c => `
     <button class="filter-chip${c === state.activeClient ? ' active' : ''}" data-client="${escHtml(c)}">${escHtml(c)}</button>
@@ -239,12 +249,18 @@ function renderFilters() {
   solutionEl.innerHTML = soluciones.map(s => `
     <button class="filter-chip${s === state.activeSolution ? ' active' : ''}" data-solution="${escHtml(s)}">${escHtml(s)}</button>
   `).join('');
+  techEl.innerHTML = tecnologias.map(t => `
+    <button class="filter-chip${t === state.activeTech ? ' active' : ''}" data-tech="${escHtml(t)}">${escHtml(t)}</button>
+  `).join('');
 
   clientEl.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => { state.activeClient = btn.dataset.client; renderFilters(); renderProjects(); });
   });
   solutionEl.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => { state.activeSolution = btn.dataset.solution; renderFilters(); renderProjects(); });
+  });
+  techEl.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => { state.activeTech = btn.dataset.tech; renderFilters(); renderProjects(); });
   });
 
   addBtn.hidden = !isEditorActive();
@@ -254,9 +270,10 @@ function filteredProjects() {
   return state.projects.filter(p => {
     if (state.activeClient !== 'Todos' && p.cliente !== state.activeClient) return false;
     if (state.activeSolution !== 'Todos' && p.solucion !== state.activeSolution) return false;
+    if (state.activeTech !== 'Todos' && !(p.tecnologias || []).includes(state.activeTech)) return false;
     if (state.search) {
       const q = state.search.toLowerCase();
-      const hay = [p.titulo, p.cliente, p.solucion, p.descripcion, ...(p.tecnologias || [])]
+      const hay = [p.titulo, p.cliente, p.solucion, stripHtml(p.descripcion), ...(p.tecnologias || [])]
         .filter(Boolean).join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
     }
@@ -308,7 +325,7 @@ function buildCardHTML(project, idx) {
         </div>
         <h2 class="card-title">${escHtml(project.titulo)}</h2>
         ${project.fecha ? `<time class="card-date" datetime="${escHtml(project.fecha)}">${formatDate(project.fecha)}</time>` : ''}
-        <p class="card-desc">${escHtml(project.descripcion || '')}</p>
+        <p class="card-desc">${escHtml(stripHtml(project.descripcion || ''))}</p>
         ${tags ? `<div class="card-tags">${tags}</div>` : ''}
         <div class="card-footer-row">
           <span class="card-attach-count">${attachments.length > 0 ? `📎 ${attachments.length} adjunto${attachments.length > 1 ? 's' : ''}` : ''}</span>
@@ -364,6 +381,7 @@ function hideModal() {
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
   overlay.onclick = null;
+  _pfQuill = null;
   setTimeout(() => {
     const box = document.getElementById('modal-box');
     box.innerHTML = ''; box.className = 'modal-box';
@@ -418,9 +436,22 @@ function showProjectDetailModal(projectId) {
   if (!project) return;
   const images = project.images || [];
   const attachments = project.attachments || [];
+  const contacts = project.contactos || [];
   _carouselImgs = images; _carouselIdx = 0;
   const imgHTML = buildCarouselHTML(images, project.titulo);
   const tags = (project.tecnologias || []).map(t => `<span class="card-tag">${escHtml(t)}</span>`).join('');
+
+  const contactsHTML = contacts.length > 0 ? `
+    <div class="detail-contacts">
+      <p class="detail-attachments-title">Contactos clave</p>
+      <div class="contacts-list">
+        ${contacts.map(c => `
+          <div class="contact-chip">
+            <span class="contact-name">${escHtml(c.nombre)}</span>
+            ${c.puesto ? `<span class="contact-role">${escHtml(c.puesto)}</span>` : ''}
+          </div>`).join('')}
+      </div>
+    </div>` : '';
 
   const attachHTML = attachments.length > 0 ? `
     <div class="detail-attachments">
@@ -446,9 +477,10 @@ function showProjectDetailModal(projectId) {
         ${project.fecha ? `<time class="card-date">${formatDate(project.fecha)}</time>` : ''}
       </div>
       <h2 class="detail-title">${escHtml(project.titulo)}</h2>
-      ${project.descripcion ? `<p class="detail-desc">${escHtml(project.descripcion)}</p>` : ''}
+      ${project.descripcion ? `<div class="detail-desc">${project.descripcion}</div>` : ''}
       ${tags ? `<div class="detail-tags">${tags}</div>` : ''}
       ${project.link ? `<a class="detail-link" href="${escHtml(project.link)}" target="_blank" rel="noopener noreferrer">Ver enlace del proyecto →</a>` : ''}
+      ${contactsHTML}
       ${attachHTML}
     </div>`, 'detail');
 
@@ -466,6 +498,7 @@ function showProjectFormModal(existingProject) {
   const existingImages = p.images || [];
   const existingAttachments = p.attachments || [];
 
+  const existingContacts = p.contactos || [];
   const clientesDatalist  = [...new Set(state.projects.map(x => x.cliente).filter(Boolean))];
   const solucionesDatalist = [...new Set(state.projects.map(x => x.solucion).filter(Boolean))];
 
@@ -525,12 +558,17 @@ function showProjectFormModal(existingProject) {
       </div>
     </div>
     <div class="form-group">
-      <label class="form-label" for="pf-desc">Descripción</label>
-      <textarea id="pf-desc" class="form-textarea" rows="4" placeholder="Qué se hizo, alcance, resultados…">${escHtml(p.descripcion || '')}</textarea>
+      <label class="form-label">Descripción</label>
+      <div id="pf-desc-editor" class="rich-editor"></div>
     </div>
     <div class="form-group">
       <label class="form-label" for="pf-tech">Tecnologías <span class="hint">(separadas por coma)</span></label>
       <input id="pf-tech" type="text" class="form-input" placeholder="React, Node.js, Azure…" value="${escHtml((p.tecnologias || []).join(', '))}" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Contactos clave <span class="hint">(opcional)</span></label>
+      <div id="pf-contacts-list"></div>
+      <button type="button" class="add-contact-btn" id="pf-add-contact">+ Agregar contacto</button>
     </div>
     ${existingImgsHTML}
     <div class="form-group">
@@ -550,6 +588,17 @@ function showProjectFormModal(existingProject) {
       <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
       <button class="btn btn-primary" id="pf-submit">${isEdit ? 'Guardar cambios →' : 'Publicar →'}</button>
     </div>`);
+
+  _pfQuill = new Quill('#pf-desc-editor', {
+    theme: 'snow',
+    placeholder: 'Qué se hizo, alcance, resultados…',
+    modules: { toolbar: [['bold', 'italic', 'underline'], [{ list: 'ordered' }, { list: 'bullet' }], ['link'], ['clean']] },
+  });
+  if (p.descripcion) _pfQuill.root.innerHTML = p.descripcion;
+
+  const contactsList = document.getElementById('pf-contacts-list');
+  if (existingContacts.length > 0) existingContacts.forEach(c => addContactRow(contactsList, c.nombre, c.puesto));
+  document.getElementById('pf-add-contact').addEventListener('click', () => addContactRow(contactsList, '', ''));
 
   document.querySelectorAll('#pf-current-imgs .current-img-remove').forEach(btn => {
     btn.addEventListener('click', () => btn.closest('.current-img-item').remove());
@@ -588,6 +637,32 @@ function showProjectEditModal(projectId) {
   showProjectFormModal(project);
 }
 
+function addContactRow(container, nombre, puesto) {
+  const row = document.createElement('div');
+  row.className = 'contact-row';
+  row.innerHTML = `
+    <input type="text" class="form-input contact-nombre" placeholder="Nombre" value="${escHtml(nombre || '')}" />
+    <input type="text" class="form-input contact-puesto" placeholder="Puesto / Cargo" value="${escHtml(puesto || '')}" />
+    <button type="button" class="contact-remove-row" aria-label="Quitar contacto">×</button>`;
+  row.querySelector('.contact-remove-row').addEventListener('click', () => row.remove());
+  container.appendChild(row);
+}
+
+function getQuillDescriptionHTML() {
+  if (!_pfQuill) return '';
+  const html = _pfQuill.root.innerHTML.trim();
+  return html === '<p><br></p>' ? '' : html;
+}
+
+function readContactsFromForm() {
+  return Array.from(document.querySelectorAll('#pf-contacts-list .contact-row'))
+    .map(row => ({
+      nombre: row.querySelector('.contact-nombre').value.trim(),
+      puesto: row.querySelector('.contact-puesto').value.trim(),
+    }))
+    .filter(c => c.nombre);
+}
+
 function readProjectFormFields() {
   return {
     titulo:  document.getElementById('pf-titulo').value.trim(),
@@ -595,8 +670,9 @@ function readProjectFormFields() {
     solucion: document.getElementById('pf-solucion').value.trim(),
     fecha:   document.getElementById('pf-fecha').value,
     link:    document.getElementById('pf-link').value.trim(),
-    descripcion: document.getElementById('pf-desc').value.trim(),
+    descripcion: getQuillDescriptionHTML(),
     tecnologias: document.getElementById('pf-tech').value.trim().split(',').map(t => t.trim()).filter(Boolean),
+    contactos: readContactsFromForm(),
     imgFiles: Array.from(document.getElementById('pf-imgs').files),
     attachFiles: Array.from(document.getElementById('pf-attachments').files),
   };
@@ -625,7 +701,7 @@ async function submitNewProject() {
   const project = {
     id: newId(), titulo: f.titulo, cliente: f.cliente, solucion: f.solucion,
     fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
-    tecnologias: f.tecnologias, images: [], attachments: [],
+    tecnologias: f.tecnologias, contactos: f.contactos, images: [], attachments: [],
   };
   const slug = slugify(f.titulo) + '-' + project.id;
 
@@ -733,7 +809,7 @@ async function submitProjectEdit(projectId, originalImages, originalAttachments)
       ...data.projects[idx],
       titulo: f.titulo, cliente: f.cliente, solucion: f.solucion,
       fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
-      tecnologias: f.tecnologias, images: newImages, attachments: newAttachments,
+      tecnologias: f.tecnologias, contactos: f.contactos, images: newImages, attachments: newAttachments,
     };
     data.projects[idx] = updated;
 

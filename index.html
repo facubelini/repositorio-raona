@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto+Slab:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -58,6 +59,10 @@
       <span class="filter-group-label">Solución</span>
       <div id="solution-filters" class="filter-chips"></div>
     </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Tecnología</span>
+      <div id="tech-filters" class="filter-chips"></div>
+    </div>
     <button id="add-project-btn" class="add-project-btn" hidden>+ Nuevo proyecto</button>
   </section>
 
@@ -80,6 +85,7 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
