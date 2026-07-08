@@ -16,13 +16,20 @@ const GH_REPO   = 'repositorio-raona';
 const GH_BRANCH = 'main';
 
 /* ─── Constantes ─────────────────────────────────────────────────── */
-const KEYWORD        = 'Raona2026!'; // cambiá esta palabra clave editando este archivo
+const SITE_KEYWORD   = 'marketing'; // palabra clave para VER el sitio — cambiala editando este archivo
+const KEYWORD         = 'marketing'; // palabra clave para ENTRAR AL MODO EDITOR — cambiala editando este archivo
 const MAX_ATTEMPTS   = 5;
 const LOCKOUT_MS     = 5 * 60 * 1000;
 const GH_PAT_KEY      = 'raona_repo_pat';
 const EDITOR_SES_KEY  = 'raona_repo_editor_active';
+const SITE_GATE_KEY   = 'raona_repo_site_unlocked';
 const GH_API          = 'https://api.github.com';
 const MAX_ATTACH_MB   = 20; // límite práctico de la Contents API de GitHub (~25MB reales)
+
+/* NOTA DE SEGURIDAD: este gate es solo cosmético — el repo es público, así que
+   cualquiera puede leer app.js (o projects.json vía raw.githubusercontent.com)
+   y ver la palabra clave o el contenido sin pasar por esta pantalla. No usar
+   para datos realmente confidenciales. */
 
 /* ─── Estado ─────────────────────────────────────────────────────── */
 const state = {
@@ -867,10 +874,40 @@ function toggleEditor() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
+   GATE — ACCESO AL SITIO (bloquea todo el contenido hasta ingresar la palabra clave)
+   ════════════════════════════════════════════════════════════════════ */
+
+const isSiteUnlocked = () => sessionStorage.getItem(SITE_GATE_KEY) === 'true';
+
+function unlockSiteUI() {
+  document.body.classList.add('unlocked');
+}
+
+function trySiteUnlock() {
+  const input = document.getElementById('gate-input');
+  const errEl = document.getElementById('gate-error');
+  if (input.value === SITE_KEYWORD) {
+    sessionStorage.setItem(SITE_GATE_KEY, 'true');
+    unlockSiteUI();
+    initApp();
+  } else {
+    errEl.hidden = false;
+    input.value = '';
+    input.focus();
+  }
+}
+
+function initSiteGate() {
+  document.getElementById('gate-submit').addEventListener('click', trySiteUnlock);
+  document.getElementById('gate-input').addEventListener('keydown', e => { if (e.key === 'Enter') trySiteUnlock(); });
+  document.getElementById('gate-input').focus();
+}
+
+/* ════════════════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════════════════ */
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function initApp() {
   await loadProjects();
   renderAll();
   updateEditorToggleUI();
@@ -883,4 +920,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => { state.search = e.target.value.trim(); renderProjects(); }, 150);
   });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (isSiteUnlocked()) {
+    unlockSiteUI();
+    initApp();
+  } else {
+    initSiteGate();
+  }
 });

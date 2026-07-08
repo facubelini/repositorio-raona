@@ -13,6 +13,19 @@
 </head>
 <body>
 
+<div id="site-gate" class="site-gate">
+  <div class="site-gate-box">
+    <img src="./images/raona-logo-white.svg" alt="Raona" class="site-gate-logo" />
+    <h1 class="site-gate-title">Repositorio de Proyectos</h1>
+    <p class="site-gate-sub">Acceso interno. Ingresá la palabra clave para continuar.</p>
+    <input id="gate-input" type="password" class="site-gate-input" autocomplete="off" placeholder="Palabra clave" />
+    <button id="gate-submit" class="site-gate-btn">Entrar →</button>
+    <p id="gate-error" class="site-gate-error" hidden>Palabra clave incorrecta.</p>
+  </div>
+</div>
+
+<div id="site-content" class="site-content">
+
 <header class="site-header">
   <div class="header-inner">
     <div class="brand">
@@ -63,6 +76,8 @@
 
 <div id="modal-overlay" class="modal-overlay" aria-hidden="true">
   <div id="modal-box" class="modal-box"></div>
+</div>
+
 </div>
 
 <script src="./app.js"></script>

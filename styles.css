@@ -40,6 +40,43 @@ button { font-family: inherit; cursor: pointer; }
 a { color: var(--raona-orange-d); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* ─── Site gate (acceso al sitio completo) ───────────────────────── */
+.site-content { display: none; }
+body.unlocked .site-content { display: block; }
+body.unlocked .site-gate { display: none; }
+
+.site-gate {
+  position: fixed; inset: 0; z-index: 200;
+  background: radial-gradient(circle at 30% 20%, #23282f 0%, var(--raona-dark) 60%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.site-gate-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #2b2f3a;
+  border-radius: 14px;
+  padding: 40px 36px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+}
+.site-gate-logo { height: 40px; margin: 0 auto 22px; }
+.site-gate-title { color: #fff; font-size: 19px; margin: 0 0 6px; }
+.site-gate-sub { color: #9ba3b4; font-size: 13px; margin: 0 0 22px; }
+.site-gate-input {
+  width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid #3a3f4d;
+  background: rgba(255,255,255,0.05); color: #fff; font-size: 14px; font-family: inherit;
+  margin-bottom: 14px; text-align: center;
+}
+.site-gate-input::placeholder { color: #6b7280; }
+.site-gate-input:focus { outline: none; border-color: var(--raona-orange); }
+.site-gate-btn {
+  width: 100%; background: var(--raona-orange); color: #fff; border: none;
+  padding: 11px 0; border-radius: 8px; font-size: 14px; font-weight: 700;
+}
+.site-gate-btn:hover { background: var(--raona-orange-d); }
+.site-gate-error { color: #ff8080; font-size: 13px; margin: 12px 0 0; }
+
 /* ─── Header ─────────────────────────────────────────────────────── */
 .site-header {
   background: var(--raona-dark);
