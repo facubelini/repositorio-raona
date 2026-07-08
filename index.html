@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Repositorio Raona — Proyectos con clientes</title>
+<meta name="description" content="Repositorio de proyectos realizados con clientes por Raona." />
+<link rel="icon" href="./images/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto+Slab:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="./images/raona-logo-white.svg" alt="Raona" class="brand-logo" />
+      <div class="brand-text">
+        <h1 class="brand-title">Repositorio de Proyectos</h1>
+        <p class="brand-sub">Trabajos realizados con clientes</p>
+      </div>
+    </div>
+    <button id="editor-toggle-btn" class="editor-toggle-btn" title="Modo editor">
+      <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M8.5 1.5L10.5 3.5L4 10H2V8L8.5 1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span id="editor-toggle-label">Editar</span>
+    </button>
+  </div>
+</header>
+
+<main class="main">
+
+  <section class="stats-bar" id="stats-bar" aria-hidden="true"></section>
+
+  <section class="filters-section">
+    <div class="search-row">
+      <input type="text" id="search-input" class="search-input" placeholder="Buscar por título, cliente, tecnología…" />
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Cliente</span>
+      <div id="client-filters" class="filter-chips"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Solución</span>
+      <div id="solution-filters" class="filter-chips"></div>
+    </div>
+    <button id="add-project-btn" class="add-project-btn" hidden>+ Nuevo proyecto</button>
+  </section>
+
+  <section class="projects-section">
+    <div id="projects-grid" class="projects-grid"></div>
+    <div id="empty-state" class="empty-state" hidden>
+      <p>No hay proyectos que coincidan con el filtro.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Raona · Repositorio interno de proyectos</p>
+</footer>
+
+<div id="modal-overlay" class="modal-overlay" aria-hidden="true">
+  <div id="modal-box" class="modal-box"></div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

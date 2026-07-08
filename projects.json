@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "id": "demo1a2b",
+      "titulo": "Portal de autogestión para clientes",
+      "cliente": "Ejemplo Cliente S.A.",
+      "solucion": "Desarrollo a medida",
+      "descripcion": "Plataforma web para que los clientes finales consulten estado de pedidos, descarguen facturas y gestionen su cuenta sin depender de soporte. Incluye panel de administración interno.\n\nEste es un proyecto de ejemplo — editalo o borralo desde el modo editor.",
+      "fecha": "2026-03",
+      "tecnologias": ["React", "Node.js", "PostgreSQL"],
+      "link": "",
+      "images": [],
+      "attachments": []
+    }
+  ]
+}
