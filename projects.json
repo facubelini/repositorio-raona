@@ -7,9 +7,15 @@
       "solucion": "Desarrollo a medida",
       "descripcion": "Plataforma web para que los clientes finales consulten estado de pedidos, descarguen facturas y gestionen su cuenta sin depender de soporte. Incluye panel de administración interno.\n\nEste es un proyecto de ejemplo — editalo o borralo desde el modo editor.",
       "fecha": "2026-03",
-      "tecnologias": ["React", "Node.js", "PostgreSQL"],
-      "link": "",
-      "images": [],
+      "tecnologias": [
+        "React",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "link": null,
+      "images": [
+        "images/demo1a2b_1783543885754_0.jpg"
+      ],
       "attachments": []
     }
   ]
