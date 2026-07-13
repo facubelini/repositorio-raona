@@ -406,9 +406,14 @@
       ],
       "attachments": [
         {
-          "name": "Case-Study-Flujos-YPF.x98357_compressed.pdf",
           "path": "attachments/migracion-de-flujos-con-power-automate-y-mrjbxcfkbfqw/Case-Study-Flujos-YPF.x98357_compressed.pdf",
+          "name": "Case-Study-Flujos-YPF.x98357_compressed.pdf",
           "size": 666372
+        },
+        {
+          "name": "Caso_YPF_-_Migracion_de_Flujos_Power_Automate.pptx",
+          "path": "attachments/migracion-de-flujos-con-power-automate-y-mrjbxcfkbfqw/Caso_YPF_-_Migracion_de_Flujos_Power_Automate.pptx",
+          "size": 423842
         }
       ]
     }
