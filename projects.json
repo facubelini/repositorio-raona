@@ -135,7 +135,13 @@
       "images": [
         "images/mrj86o5oa069_0.png"
       ],
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "Case-Study-Havanna-1.pdf",
+          "path": "attachments/portal-de-ventas-havanna-mrj86o5oa069/Case-Study-Havanna-1.pdf",
+          "size": 747628
+        }
+      ],
       "industria": "Retail"
     },
     {
