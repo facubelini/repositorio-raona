@@ -512,7 +512,7 @@ function showProjectDetailModal(projectId) {
       <h2 class="detail-title">${escHtml(project.titulo)}</h2>
       ${project.descripcion ? `<div class="detail-desc">${project.descripcion}</div>` : ''}
       ${tags ? `<div class="detail-tags">${tags}</div>` : ''}
-      ${project.link ? `<a class="detail-link" href="${escHtml(project.link)}" target="_blank" rel="noopener noreferrer">Ver enlace del proyecto →</a>` : ''}
+      ${project.link ? `<a class="detail-link" href="${escHtml(project.link)}" target="_blank" rel="noopener noreferrer">Ver web del cliente →</a>` : ''}
       ${contactsHTML}
       ${attachHTML}
     </div>`, 'detail');
