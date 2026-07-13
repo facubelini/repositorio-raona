@@ -359,6 +359,48 @@
           "size": 1475591
         }
       ]
+    },
+    {
+      "id": "mrjbxcfkbfqw",
+      "titulo": "Migración de Flujos con Power Automate - YPF",
+      "casoExito": true,
+      "cliente": "YPF",
+      "industria": "Energía",
+      "soluciones": [
+        "Migración",
+        "Consultoría Power Platform"
+      ],
+      "fecha": null,
+      "link": "https://ypf.com/",
+      "descripcion": "<h3>Migración de Flujos YPF con Power Automate – Caso de éxito</h3><p><br></p><p><strong>De qué se trata</strong></p><p>Raona lideró la migración masiva de los flujos de trabajo de YPF hacia Power Automate, dentro de su proceso de transformación digital y movimiento a la nube con Microsoft 365. El proyecto buscó optimizar, reestructurar y homogeneizar más de mil flujos bajo una estrategia Low Code, reduciendo licencias de terceros y mejorando el governance.</p><p><br></p><p><strong>El cliente</strong></p><p>YPF es una de las empresas más tradicionales e importantes de Argentina, fundada en 1922, con cerca de 20 mil empleados directos. Es la principal productora de hidrocarburos del país y también opera en Brasil, Bolivia y Chile, además de desarrollar energía eléctrica (YPF LUZ) y soluciones tecnológicas (Y-TEC). En 2019 inició un profundo proceso de transformación digital adoptando Microsoft 365, con más de 1,5 millones de archivos en OneDrive, 1.500 equipos y 7.500 usuarios activos en Teams, más de 8 mil usuarios en SharePoint y más de 130 millones de correos migrados a Exchange.</p><p><br></p><p><strong>El desafío</strong></p><p>El punto de partida era enorme: más de un millar de flujos, cientos de formularios InfoPath y más de un centenar de site collections. Había que catalogar y migrar todo garantizando la continuidad del negocio, controlando múltiples ventanas de tiempo, adaptándose a riesgos externos (político, económico y sanitario) y logrando la adopción de usuarios fuera del área de sistemas, todo con una tecnología aún incipiente.</p><p><br></p><p><strong>La solución</strong></p><p>Trabajando en modalidad Scrum, el equipo catalogó los flujos y ejecutó una migración masiva según complejidad, migrando a Power Automate y dejando los flujos más complejos en Nintex for Office 365. En la fase final se realizó el traspaso de conocimiento y la capacitación en Power Automate y Low Code para que el propio equipo de YPF pudiera crear y mantener flujos a futuro.</p><p><br></p><p><strong>Los números conseguidos</strong></p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>+1.000</strong> flujos, cientos de formularios InfoPath y <strong>+100</strong> site collections como punto de partida</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>~70%</strong> de los flujos migrados a Power Automate eran de complejidad baja (menos de 10 acciones)</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>&lt;30%</strong> eran de complejidad media (entre 10 y 50 acciones)</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Los de complejidad alta (entre 50 y 100 acciones) quedaron en Nintex for Office 365</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>1 de cada 3 flujos</strong> optimizados: además de migrarse, muchos flujos dejaron de ser necesarios por mejoras de funcionalidad y tecnología</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Reconocido como \"el mayor proyecto de migración de flujos en LATAM\"</li></ol><p><br></p><p><strong>La voz del cliente</strong></p><p>El Ing. Pablo Fernández Hinojosa (Ingeniería de Software – Equipo YPF) destaca que el gran reto era organizar y migrar un enorme volumen de usuarios, flujos, formularios y sitios; y que el mayor éxito fue lograrlo cumpliendo tiempos y compromisos, optimizando gran cantidad de flujos y haciendo que todo el proceso fuera transparente para los usuarios, sin que notaran el cambio.</p>",
+      "tecnologias": [
+        "Power Automate",
+        "Power Platform",
+        "Nintex for Office 365",
+        "Microsoft 365",
+        "SharePoint",
+        "PowerApps",
+        "Power BI",
+        "Microsoft Teams",
+        "Office 365",
+        "InfoPath"
+      ],
+      "contactos": [
+        {
+          "nombre": "Pablo Fernández Hinojosa",
+          "puesto": "Ingeniería de Software – Equipo YPF"
+        }
+      ],
+      "images": [
+        "images/mrjbxcfkbfqw_0.jpg"
+      ],
+      "attachments": [
+        {
+          "name": "Case-Study-Flujos-YPF.x98357_compressed.pdf",
+          "path": "attachments/migracion-de-flujos-con-power-automate-y-mrjbxcfkbfqw/Case-Study-Flujos-YPF.x98357_compressed.pdf",
+          "size": 666372
+        }
+      ]
     }
   ]
 }
