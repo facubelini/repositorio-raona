@@ -60,6 +60,36 @@
         "images/mrj7sqymk3c9_0.webp"
       ],
       "attachments": []
+    },
+    {
+      "id": "mrj836m9qm59",
+      "titulo": "AES / AES Andes - Migración y modernización de entornos",
+      "cliente": "AES / AES Andes",
+      "solucion": "Migración y modernización de entornos",
+      "fecha": null,
+      "link": "https://www.aesandes.com/es",
+      "descripcion": "<p>Migración y modernización de entornos SharePoint, soporte evolutivo y desarrollos a medida integrados con procesos de negocio.</p>",
+      "tecnologias": [
+        "SharePoint Online",
+        "SharePoint On-Premise",
+        "Flujos",
+        "Formularios",
+        "Microsoft Platform"
+      ],
+      "contactos": [
+        {
+          "nombre": "Daniel Esteban Barelli",
+          "puesto": "SharePoint GFE"
+        },
+        {
+          "nombre": "Federico Damario",
+          "puesto": "Supply Chain"
+        }
+      ],
+      "images": [
+        "images/mrj836m9qm59_0.png"
+      ],
+      "attachments": []
     }
   ]
 }
