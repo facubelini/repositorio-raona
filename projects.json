@@ -78,8 +78,7 @@
       "link": "https://www.aesandes.com/es",
       "descripcion": "<p>Migración y modernización de entornos SharePoint, soporte evolutivo y desarrollos a medida integrados con procesos de negocio.</p>",
       "tecnologias": [
-        "SharePoint Online",
-        "SharePoint On-Premise",
+        "SharePoint",
         "Flujos",
         "Formularios",
         "Microsoft Platform"
