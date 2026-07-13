@@ -292,7 +292,7 @@
         "UI"
       ],
       "fecha": null,
-      "link": null,
+      "link": "https://www.aeropuertosargentina.com/",
       "descripcion": "<h3>oneHUB – Caso de éxito Aeropuertos Argentina</h3><p><br></p><p><strong>De qué se trata</strong></p><p>oneHUB es el Digital Workplace que Raona implementó para Aeropuertos Argentina sobre Microsoft 365. Es una intranet moderna que centraliza comunicación interna, contenido corporativo y accesos a aplicaciones en un solo lugar, con el objetivo de reforzar la cultura corporativa y el sentido de pertenencia de los empleados.</p><p><br></p><p><strong>El cliente</strong></p><p>Aeropuertos Argentina opera el 90% del tráfico aerocomercial del país, gestionando 35 terminales aéreas y con más de 2.800 empleados. La compañía nació en 1998.</p><p><br></p><p><strong>El desafío</strong></p><p>Los beneficios e información estaban dispersos en varios sistemas externos, lo que dificultaba el acceso. Se buscaba unificar contenido y aplicaciones, fortalecer la difusión de misión y valores, y potenciar la participación de los empleados.</p><p><br></p><p><strong>La solución</strong></p><p>Se construyó sobre Modern Workplace by Raona, apoyándose en tres aceleradores: Communication Hub (comunicación interna con estadísticas), Modern Intranet (mejora la usabilidad de SharePoint) y aceleradores para Microsoft 365. Incluye un portal del empleado personalizado, comunicación dual (Board corporativo + Viva Engage para lo informal) y un centro de aplicaciones con accesos directos.</p><p><br></p><p><strong>Los números conseguidos</strong></p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>2.800</strong> empleados conectados (en 35 terminales de todo el país)</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>15</strong> herramientas externas integradas para accesos prácticos</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>11</strong> comunidades creadas en Viva Engage para fomentar participación</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>40</strong> ofertas de trabajo publicadas como estrategia de retención de talento</li></ol><p><br></p><p><strong>La voz del cliente</strong></p><p>Ezequiel Vera, Gerente de Comunicación y Experiencia del Empleado, destaca que el grupo dio un salto cualitativo con un entorno más avanzado que mejora accesibilidad, colaboración y comunicación, y que Viva Engage potenció el canal de comunicación interna.</p>",
       "tecnologias": [
         "Microsoft 365",
@@ -309,8 +309,16 @@
           "puesto": "Gerente de Comunicación y Experiencia del Empleado"
         }
       ],
-      "images": [],
-      "attachments": []
+      "images": [
+        "images/mrjb0ad4knhp_1783952173623_0.jpg"
+      ],
+      "attachments": [
+        {
+          "name": "Case-Study-Aeropuertos-Argentina-1-1.pdf",
+          "path": "attachments/onehub-aeropuertos-argentina-mrjb0ad4knhp/Case-Study-Aeropuertos-Argentina-1-1.pdf",
+          "size": 1532115
+        }
+      ]
     }
   ]
 }
