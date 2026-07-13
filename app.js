@@ -32,17 +32,43 @@ const MAX_ATTACH_MB   = 20; // límite práctico de la Contents API de GitHub (~
    para datos realmente confidenciales. */
 
 /* ─── Estado ─────────────────────────────────────────────────────── */
+/* Cada filtro es multi-selección: un Set vacío significa "Todos" (sin filtrar).
+   Dentro de un mismo filtro las selecciones se combinan con OR; entre filtros distintos, con AND. */
 const state = {
-  projects:        [],
-  activeClient:    'Todos',
-  activeSolution:  'Todos',
-  activeTech:      'Todos',
-  activeIndustry:  'Todos',
-  activeCase:      'Todos',
+  projects: [],
+  filters: {
+    cliente:    new Set(),
+    industria:  new Set(),
+    solucion:   new Set(),
+    tecnologia: new Set(),
+    caso:       new Set(),
+  },
   search:          '',
   failedAttempts:  0,
   lockoutUntil:    null,
 };
+
+/* ─── Definición de filtros (facetas) ────────────────────────────────
+   elId: contenedor de chips en el HTML · dataAttr: nombre del data-* (camelCase, sin guiones)
+   values(projects): calcula las opciones disponibles · projectValues(p): valores del proyecto para esa faceta */
+const FACETS = [
+  { key: 'cliente', elId: 'client-filters', dataAttr: 'client',
+    values: ps => [...new Set(ps.map(p => p.cliente).filter(Boolean))],
+    projectValues: p => p.cliente ? [p.cliente] : [] },
+  { key: 'industria', elId: 'industry-filters', dataAttr: 'industry',
+    values: ps => [...new Set(ps.map(p => p.industria).filter(Boolean))],
+    projectValues: p => p.industria ? [p.industria] : [] },
+  { key: 'solucion', elId: 'solution-filters', dataAttr: 'solution',
+    values: ps => [...new Set(ps.flatMap(p => p.soluciones || []).filter(Boolean))],
+    projectValues: p => p.soluciones || [] },
+  { key: 'tecnologia', elId: 'tech-filters', dataAttr: 'tech',
+    values: ps => [...new Set(ps.flatMap(p => p.tecnologias || []).filter(Boolean))],
+    projectValues: p => p.tecnologias || [] },
+  { key: 'caso', elId: 'case-filters', dataAttr: 'case',
+    values: () => ['Sí', 'No'],
+    projectValues: p => [p.casoExito ? 'Sí' : 'No'] },
+];
+const FILTER_ALL = '__TODOS__';
 
 let _carouselIdx  = 0;
 let _carouselImgs = [];
@@ -236,49 +262,29 @@ function renderStats() {
 }
 
 function renderFilters() {
-  const clientEl   = document.getElementById('client-filters');
-  const solutionEl = document.getElementById('solution-filters');
-  const techEl      = document.getElementById('tech-filters');
-  const industryEl  = document.getElementById('industry-filters');
-  const caseEl      = document.getElementById('case-filters');
-  const addBtn      = document.getElementById('add-project-btn');
+  const addBtn = document.getElementById('add-project-btn');
 
-  const clientes   = ['Todos', ...new Set(state.projects.map(p => p.cliente).filter(Boolean))];
-  const soluciones = ['Todos', ...new Set(state.projects.flatMap(p => p.soluciones || []).filter(Boolean))];
-  const tecnologias = ['Todos', ...new Set(state.projects.flatMap(p => p.tecnologias || []).filter(Boolean))];
-  const industrias  = ['Todos', ...new Set(state.projects.map(p => p.industria).filter(Boolean))];
-  const casos       = ['Todos', 'Sí', 'No'];
+  FACETS.forEach(facet => {
+    const el = document.getElementById(facet.elId);
+    const activeSet = state.filters[facet.key];
+    const options = facet.values(state.projects);
 
-  clientEl.innerHTML = clientes.map(c => `
-    <button class="filter-chip${c === state.activeClient ? ' active' : ''}" data-client="${escHtml(c)}">${escHtml(c)}</button>
-  `).join('');
-  solutionEl.innerHTML = soluciones.map(s => `
-    <button class="filter-chip${s === state.activeSolution ? ' active' : ''}" data-solution="${escHtml(s)}">${escHtml(s)}</button>
-  `).join('');
-  techEl.innerHTML = tecnologias.map(t => `
-    <button class="filter-chip${t === state.activeTech ? ' active' : ''}" data-tech="${escHtml(t)}">${escHtml(t)}</button>
-  `).join('');
-  industryEl.innerHTML = industrias.map(i => `
-    <button class="filter-chip${i === state.activeIndustry ? ' active' : ''}" data-industry="${escHtml(i)}">${escHtml(i)}</button>
-  `).join('');
-  caseEl.innerHTML = casos.map(c => `
-    <button class="filter-chip${c === state.activeCase ? ' active' : ''}" data-case="${escHtml(c)}">${escHtml(c)}</button>
-  `).join('');
+    const allChip = `<button class="filter-chip${activeSet.size === 0 ? ' active' : ''}" data-${facet.dataAttr}="${FILTER_ALL}">Todos</button>`;
+    const optionChips = options.map(v => `
+      <button class="filter-chip${activeSet.has(v) ? ' active' : ''}" data-${facet.dataAttr}="${escHtml(v)}">${escHtml(v)}</button>
+    `).join('');
+    el.innerHTML = allChip + optionChips;
 
-  clientEl.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => { state.activeClient = btn.dataset.client; renderFilters(); renderProjects(); });
-  });
-  solutionEl.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => { state.activeSolution = btn.dataset.solution; renderFilters(); renderProjects(); });
-  });
-  techEl.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => { state.activeTech = btn.dataset.tech; renderFilters(); renderProjects(); });
-  });
-  industryEl.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => { state.activeIndustry = btn.dataset.industry; renderFilters(); renderProjects(); });
-  });
-  caseEl.querySelectorAll('.filter-chip').forEach(btn => {
-    btn.addEventListener('click', () => { state.activeCase = btn.dataset.case; renderFilters(); renderProjects(); });
+    el.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.dataset[facet.dataAttr];
+        if (val === FILTER_ALL) activeSet.clear();
+        else if (activeSet.has(val)) activeSet.delete(val);
+        else activeSet.add(val);
+        renderFilters();
+        renderProjects();
+      });
+    });
   });
 
   addBtn.hidden = !isEditorActive();
@@ -286,11 +292,12 @@ function renderFilters() {
 
 function filteredProjects() {
   return state.projects.filter(p => {
-    if (state.activeClient !== 'Todos' && p.cliente !== state.activeClient) return false;
-    if (state.activeSolution !== 'Todos' && !(p.soluciones || []).includes(state.activeSolution)) return false;
-    if (state.activeTech !== 'Todos' && !(p.tecnologias || []).includes(state.activeTech)) return false;
-    if (state.activeIndustry !== 'Todos' && p.industria !== state.activeIndustry) return false;
-    if (state.activeCase !== 'Todos' && Boolean(p.casoExito) !== (state.activeCase === 'Sí')) return false;
+    for (const facet of FACETS) {
+      const activeSet = state.filters[facet.key];
+      if (activeSet.size === 0) continue;
+      const projectValues = facet.projectValues(p);
+      if (!projectValues.some(v => activeSet.has(v))) return false;
+    }
     if (state.search) {
       const q = state.search.toLowerCase();
       const hay = [p.titulo, p.cliente, p.industria, ...(p.soluciones || []), stripHtml(p.descripcion), ...(p.tecnologias || [])]
