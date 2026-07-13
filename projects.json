@@ -110,7 +110,7 @@
       "descripcion": "<p>Portal de ventas corporativas, automatización de procesos y dashboards de negocio utilizando SharePoint, Power Platform y Power BI.</p>",
       "tecnologias": [
         "Sharepoint Framework",
-        "Sharepoint Online",
+        "Sharepoint",
         "Power Platform",
         "Power BI",
         "Planner"
