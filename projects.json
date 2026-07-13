@@ -59,6 +59,35 @@
         "images/mrj7nwn2scma_0.png"
       ],
       "attachments": []
+    },
+    {
+      "id": "mrj7sqymk3c9",
+      "titulo": "Portal de clientes / Agentes IA - Pluspetrol",
+      "cliente": "Pluspetrol",
+      "solucion": "Portal de clientes, Agentes IA",
+      "fecha": null,
+      "link": "https://www.pluspetrol.net/es",
+      "descripcion": "<p>Portal de Clientes con actualización tecnológica, servicios evolutivos y acompañamiento en iniciativas de IA y Agentes sobre Microsoft 365.</p>",
+      "tecnologias": [
+        "SharePoint",
+        "Microsoft 365",
+        "IA/Agentes",
+        "Portal Clientes"
+      ],
+      "contactos": [
+        {
+          "nombre": "Andres Murabito",
+          "puesto": ""
+        },
+        {
+          "nombre": "Sebastian Astudillo",
+          "puesto": ""
+        }
+      ],
+      "images": [
+        "images/mrj7sqymk3c9_0.webp"
+      ],
+      "attachments": []
     }
   ]
 }
