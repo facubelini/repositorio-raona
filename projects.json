@@ -224,7 +224,32 @@
         "Teams",
         "Power BI"
       ],
-      "contactos": [],
+      "contactos": [
+        {
+          "nombre": "Juan Pablo Pomadoro",
+          "puesto": ""
+        },
+        {
+          "nombre": "Ma. Florencia Bertone",
+          "puesto": ""
+        },
+        {
+          "nombre": "Sofia Garaguso",
+          "puesto": ""
+        },
+        {
+          "nombre": "Mauricio Baldovino",
+          "puesto": ""
+        },
+        {
+          "nombre": "Esteban Rivera",
+          "puesto": ""
+        },
+        {
+          "nombre": "Damián Alejandro Iñiguez",
+          "puesto": ""
+        }
+      ],
       "images": [
         "images/mrj8x19t36n3_0.png"
       ],
