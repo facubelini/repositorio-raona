@@ -90,6 +90,40 @@
         "images/mrj836m9qm59_0.png"
       ],
       "attachments": []
+    },
+    {
+      "id": "mrj86o5oa069",
+      "titulo": "Portal de Ventas - Havanna",
+      "cliente": "Havanna",
+      "solucion": "Portal de ventas",
+      "fecha": null,
+      "link": "https://www.havanna.com.ar/",
+      "descripcion": "<p>Portal de ventas corporativas, automatización de procesos y dashboards de negocio utilizando SharePoint, Power Platform y Power BI.</p>",
+      "tecnologias": [
+        "Sharepoint Framework",
+        "Sharepoint Online",
+        "Power Platform",
+        "Power BI",
+        "Planner"
+      ],
+      "contactos": [
+        {
+          "nombre": "Juan Cruz Correa Urquiza",
+          "puesto": ""
+        },
+        {
+          "nombre": "Franco Zoppolo",
+          "puesto": ""
+        },
+        {
+          "nombre": "Martin Saulle",
+          "puesto": ""
+        }
+      ],
+      "images": [
+        "images/mrj86o5oa069_0.png"
+      ],
+      "attachments": []
     }
   ]
 }
