@@ -29,31 +29,6 @@
       "attachments": []
     },
     {
-      "id": "mrck0d40c8bn",
-      "titulo": "Test",
-      "cliente": "YPF",
-      "solucion": "Intranet",
-      "fecha": null,
-      "link": null,
-      "descripcion": "",
-      "tecnologias": [],
-      "images": [
-        "images/mrck0d40c8bn_0.png"
-      ],
-      "attachments": [
-        {
-          "name": "Case-Study-Havanna-1.pdf",
-          "path": "attachments/test-mrck0d40c8bn/Case-Study-Havanna-1.pdf",
-          "size": 747628
-        },
-        {
-          "name": "Havanna.pptx",
-          "path": "attachments/test-mrck0d40c8bn/Havanna.pptx",
-          "size": 212972
-        }
-      ]
-    },
-    {
       "id": "mrj7nwn2scma",
       "titulo": "Communication Hub - Acsys",
       "cliente": "Acsys",
