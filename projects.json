@@ -319,6 +319,46 @@
           "size": 1532115
         }
       ]
+    },
+    {
+      "id": "mrjbok3x27o3",
+      "titulo": "AppIn Store - Arredo",
+      "casoExito": true,
+      "cliente": "Arredo",
+      "industria": "Retail",
+      "soluciones": [
+        "Desarrollo personalizado",
+        "UX",
+        "UI",
+        "EventHub"
+      ],
+      "fecha": null,
+      "link": "https://www.arredo.com.ar/",
+      "descripcion": "<h3>APPINstore – Caso de éxito Arredo</h3><p><br></p><p><strong>De qué se trata</strong></p><p>APPINstore es un ecosistema digital de aplicaciones que Raona desarrolló para Arredo con el objetivo de mejorar la eficiencia operativa y la satisfacción del cliente en las tiendas físicas. Combina un nuevo punto de venta (PoS) y una app móvil que agilizan el proceso de compra, reducen tiempos de espera y permiten recopilar datos para ofrecer un servicio más personalizado.</p><p><br></p><p><strong>El cliente</strong></p><p>Arredo es un proyecto familiar fundado hace más de 40 años, especializado en la confección y comercialización de productos para el hogar bajo el lema \"crear hogar\". Está presente con más de 70 locales físicos en Argentina y 13 en Uruguay, más tiendas online en ambos países, y emplea a más de 700 personas.</p><p><br></p><p><strong>El desafío</strong></p><p>El mercado demandaba una experiencia de compra híbrida que combinara lo virtual y lo físico, con foco en generar conexión emocional para diferenciarse. Era clave unificar los procesos de compra online y offline, priorizar la experiencia del cliente y que los colaboradores conocieran mejor la propuesta de valor de la marca para fidelizar.</p><p><br></p><p><strong>La solución</strong></p><p>Un ecosistema con tres componentes: una aplicación de ventas (app móvil que permite consultas de producto, gestión de datos de clientes y pagos desde un solo dispositivo), una cultura de personalización a través del PoS que recopila información del cliente, y una herramienta de desarrollo personal que da visibilidad a los colaboradores sobre su desempeño en tiempo real frente a los objetivos de venta.</p><p><br></p><p><strong>Los números conseguidos</strong></p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>70%</strong> de las ventas se inician con APPInstore, reduciendo significativamente el tiempo en caja y la espera</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>15%</strong> de ese 70% son operaciones realizadas íntegramente en la app, sin pasar por caja</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>80%</strong> de las altas de clientes en tienda se hacen automáticamente desde la app con el código de barras del DNI</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>+70</strong> tiendas físicas en Argentina</li></ol><p><br></p><p><strong>La voz del cliente</strong></p><p>Christian Finkelstein (Director Comercial) destaca que APPInstore agrega una capa de inteligencia a los equipos, agilizando la venta y permitiendo que los colaboradores se enfoquen en la empatía y el contacto humano. Gastón Savino (Director de Tecnología) resalta el alineamiento con la sustentabilidad: el software corre sobre una nube de emisión nula y el envío de facturas y tickets por mail reduce el uso de papel.</p>",
+      "tecnologias": [
+        "React",
+        "Redux",
+        "Active Directory",
+        "EventHub",
+        "RabbitMQ",
+        "Cloud"
+      ],
+      "contactos": [
+        {
+          "nombre": "Christian Finkelstein",
+          "puesto": "Director Comercial"
+        }
+      ],
+      "images": [
+        "images/mrjbok3x27o3_0.svg"
+      ],
+      "attachments": [
+        {
+          "name": "Case-Study-Arredo-AppInStore-4.pdf",
+          "path": "attachments/appin-store-arredo-mrjbok3x27o3/Case-Study-Arredo-AppInStore-4.pdf",
+          "size": 1475591
+        }
+      ]
     }
   ]
 }
