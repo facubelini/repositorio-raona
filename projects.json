@@ -204,6 +204,31 @@
       ],
       "attachments": [],
       "solucion": "Power Platform"
+    },
+    {
+      "id": "mrj8x19t36n3",
+      "titulo": "Ceres Tolvas",
+      "cliente": "Ceres Tolvas",
+      "soluciones": [
+        "Adopción digital",
+        "Cost Optimization",
+        "Ciberseguridad"
+      ],
+      "fecha": null,
+      "link": "https://www.cerestolvas.com.ar/",
+      "descripcion": "<p>Programa de Adopción Microsoft 365 enfocado en formación de usuarios, embajadores digitales, Power BI para usuarios de negocio, colaboración y buenas prácticas de seguridad. También iniciativas de Microsoft Cost Optimization y Assessment de Ciberseguridad M365. </p>",
+      "tecnologias": [
+        "Microsoft 365",
+        "SharePoint",
+        "OneDrive",
+        "Teams",
+        "Power BI"
+      ],
+      "contactos": [],
+      "images": [
+        "images/mrj8x19t36n3_0.png"
+      ],
+      "attachments": []
     }
   ]
 }
