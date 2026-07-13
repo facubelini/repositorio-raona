@@ -154,7 +154,7 @@
       "id": "mrj8gj0li6m9",
       "titulo": "LDC - Power Platform",
       "cliente": "LDC",
-      "solucion": "Power Platform",
+      "soluciones": ["Power Platform"],
       "fecha": null,
       "link": "https://www.ldc.com/ar/es/ldc-en-argentina/",
       "descripcion": "<p>Ecosistema regional de aplicaciones Power Platform utilizado en Argentina, Uruguay y Paraguay. Incluye Reserva de Oficinas, Carga de Negocios, Budget, QTool, Observaciones Comportamentales, Reserva de Vehículos y otros procesos operativos. También soporte y evolutivos continuos sobre SharePoint y Power Platform. Tecnologías: SharePoint, Power Apps, Power Automate, Dataverse y Azure.</p>",
