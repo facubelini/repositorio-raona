@@ -137,12 +137,13 @@
       ],
       "attachments": [
         {
-          "name": "Case-Study-Havanna-1.pdf",
           "path": "attachments/portal-de-ventas-havanna-mrj86o5oa069/Case-Study-Havanna-1.pdf",
+          "name": "Case-Study-Havanna-1.pdf",
           "size": 747628
         }
       ],
-      "industria": "Retail"
+      "industria": "Retail",
+      "casoExito": true
     },
     {
       "id": "mrj8af96xkhi",
