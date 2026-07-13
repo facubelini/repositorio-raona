@@ -389,14 +389,14 @@ function showDeleteConfirm(projectId, cardEl) {
    MODAL — genérico
    ════════════════════════════════════════════════════════════════════ */
 
-function showModal(html, type = '') {
+function showModal(html, type = '', opts = {}) {
   const overlay = document.getElementById('modal-overlay');
   const box     = document.getElementById('modal-box');
   box.innerHTML = html;
   box.className = type ? `modal-box modal-box--${type}` : 'modal-box';
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
-  overlay.onclick = e => { if (e.target === overlay) hideModal(); };
+  overlay.onclick = opts.lockOverlay ? null : (e => { if (e.target === overlay) hideModal(); });
   if (!type) setTimeout(() => box.querySelector('input, textarea')?.focus(), 60);
 }
 function hideModal() {
@@ -625,7 +625,7 @@ function showProjectFormModal(existingProject) {
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="hideModal()">Cancelar</button>
       <button class="btn btn-primary" id="pf-submit">${isEdit ? 'Guardar cambios →' : 'Publicar →'}</button>
-    </div>`);
+    </div>`, '', { lockOverlay: true });
 
   _pfQuill = new Quill('#pf-desc-editor', {
     theme: 'snow',
