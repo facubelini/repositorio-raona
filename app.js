@@ -226,7 +226,7 @@ function renderAll() {
 function renderStats() {
   const bar = document.getElementById('stats-bar');
   const clientes  = new Set(state.projects.map(p => p.cliente).filter(Boolean));
-  const soluciones = new Set(state.projects.map(p => p.solucion).filter(Boolean));
+  const soluciones = new Set(state.projects.flatMap(p => p.soluciones || []).filter(Boolean));
   bar.innerHTML = `
     <div class="stat-pill"><strong>${state.projects.length}</strong><span>Proyectos</span></div>
     <div class="stat-pill"><strong>${clientes.size}</strong><span>Clientes</span></div>
@@ -240,7 +240,7 @@ function renderFilters() {
   const addBtn      = document.getElementById('add-project-btn');
 
   const clientes   = ['Todos', ...new Set(state.projects.map(p => p.cliente).filter(Boolean))];
-  const soluciones = ['Todos', ...new Set(state.projects.map(p => p.solucion).filter(Boolean))];
+  const soluciones = ['Todos', ...new Set(state.projects.flatMap(p => p.soluciones || []).filter(Boolean))];
   const tecnologias = ['Todos', ...new Set(state.projects.flatMap(p => p.tecnologias || []).filter(Boolean))];
 
   clientEl.innerHTML = clientes.map(c => `
@@ -269,11 +269,11 @@ function renderFilters() {
 function filteredProjects() {
   return state.projects.filter(p => {
     if (state.activeClient !== 'Todos' && p.cliente !== state.activeClient) return false;
-    if (state.activeSolution !== 'Todos' && p.solucion !== state.activeSolution) return false;
+    if (state.activeSolution !== 'Todos' && !(p.soluciones || []).includes(state.activeSolution)) return false;
     if (state.activeTech !== 'Todos' && !(p.tecnologias || []).includes(state.activeTech)) return false;
     if (state.search) {
       const q = state.search.toLowerCase();
-      const hay = [p.titulo, p.cliente, p.solucion, stripHtml(p.descripcion), ...(p.tecnologias || [])]
+      const hay = [p.titulo, p.cliente, ...(p.soluciones || []), stripHtml(p.descripcion), ...(p.tecnologias || [])]
         .filter(Boolean).join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
     }
@@ -302,9 +302,10 @@ function buildCardHTML(project, idx) {
          ${images.length > 1 ? `<span class="card-img-count">${images.length} imgs</span>` : ''}
          <img src="./${escHtml(images[0])}" alt="${escHtml(project.titulo)}" class="card-img" loading="lazy" />
        </div>`
-    : `<div class="card-img-wrap card-img-placeholder"><span class="placeholder-label" aria-hidden="true">${escHtml(project.solucion || '—')}</span></div>`;
+    : `<div class="card-img-wrap card-img-placeholder"><span class="placeholder-label" aria-hidden="true">${escHtml((project.soluciones || [])[0] || '—')}</span></div>`;
 
   const tags = (project.tecnologias || []).map(t => `<span class="card-tag">${escHtml(t)}</span>`).join('');
+  const solutionBadges = (project.soluciones || []).map(s => `<span class="badge badge-solucion">${escHtml(s)}</span>`).join('');
 
   const delBtn  = isEditorActive()
     ? `<button class="card-delete-btn" data-id="${id}" aria-label="Eliminar" title="Eliminar">×</button>` : '';
@@ -321,7 +322,7 @@ function buildCardHTML(project, idx) {
       <div class="card-body">
         <div class="card-badges">
           ${project.cliente ? `<span class="badge badge-cliente">${escHtml(project.cliente)}</span>` : ''}
-          ${project.solucion ? `<span class="badge badge-solucion">${escHtml(project.solucion)}</span>` : ''}
+          ${solutionBadges}
         </div>
         <h2 class="card-title">${escHtml(project.titulo)}</h2>
         ${project.fecha ? `<time class="card-date" datetime="${escHtml(project.fecha)}">${formatDate(project.fecha)}</time>` : ''}
@@ -440,6 +441,7 @@ function showProjectDetailModal(projectId) {
   _carouselImgs = images; _carouselIdx = 0;
   const imgHTML = buildCarouselHTML(images, project.titulo);
   const tags = (project.tecnologias || []).map(t => `<span class="card-tag">${escHtml(t)}</span>`).join('');
+  const solutionBadges = (project.soluciones || []).map(s => `<span class="badge badge-solucion">${escHtml(s)}</span>`).join('');
 
   const contactsHTML = contacts.length > 0 ? `
     <div class="detail-contacts">
@@ -473,7 +475,7 @@ function showProjectDetailModal(projectId) {
       <button class="detail-close" onclick="hideModal()" aria-label="Cerrar">×</button>
       <div class="detail-meta">
         ${project.cliente ? `<span class="badge badge-cliente">${escHtml(project.cliente)}</span>` : ''}
-        ${project.solucion ? `<span class="badge badge-solucion">${escHtml(project.solucion)}</span>` : ''}
+        ${solutionBadges}
         ${project.fecha ? `<time class="card-date">${formatDate(project.fecha)}</time>` : ''}
       </div>
       <h2 class="detail-title">${escHtml(project.titulo)}</h2>
@@ -500,7 +502,7 @@ function showProjectFormModal(existingProject) {
 
   const existingContacts = p.contactos || [];
   const clientesDatalist  = [...new Set(state.projects.map(x => x.cliente).filter(Boolean))];
-  const solucionesDatalist = [...new Set(state.projects.map(x => x.solucion).filter(Boolean))];
+  const solucionesDatalist = [...new Set(state.projects.flatMap(x => x.soluciones || []).filter(Boolean))];
 
   const existingImgsHTML = isEdit && existingImages.length > 0 ? `
     <div class="form-group">
@@ -542,8 +544,8 @@ function showProjectFormModal(existingProject) {
         <datalist id="pf-clientes-list">${clientesDatalist.map(c => `<option value="${escHtml(c)}">`).join('')}</datalist>
       </div>
       <div class="form-group">
-        <label class="form-label" for="pf-solucion">Solución <span class="req">*</span></label>
-        <input id="pf-solucion" type="text" class="form-input" list="pf-soluciones-list" placeholder="Ej: Desarrollo a medida, Consultoría, Data & AI…" value="${escHtml(p.solucion || '')}" />
+        <label class="form-label" for="pf-solucion">Solución <span class="req">*</span> <span class="hint">(separadas por coma si hay más de una)</span></label>
+        <input id="pf-solucion" type="text" class="form-input" list="pf-soluciones-list" placeholder="Ej: Desarrollo a medida, Consultoría, Data & AI…" value="${escHtml((p.soluciones || []).join(', '))}" />
         <datalist id="pf-soluciones-list">${solucionesDatalist.map(s => `<option value="${escHtml(s)}">`).join('')}</datalist>
       </div>
     </div>
@@ -667,7 +669,7 @@ function readProjectFormFields() {
   return {
     titulo:  document.getElementById('pf-titulo').value.trim(),
     cliente: document.getElementById('pf-cliente').value.trim(),
-    solucion: document.getElementById('pf-solucion').value.trim(),
+    soluciones: document.getElementById('pf-solucion').value.trim().split(',').map(s => s.trim()).filter(Boolean),
     fecha:   document.getElementById('pf-fecha').value,
     link:    document.getElementById('pf-link').value.trim(),
     descripcion: getQuillDescriptionHTML(),
@@ -685,7 +687,7 @@ async function submitNewProject() {
   const statusEl = document.getElementById('pf-status');
   const submitBtn = document.getElementById('pf-submit');
 
-  if (!f.titulo || !f.cliente || !f.solucion) { showError(errEl, 'Título, cliente y solución son obligatorios.'); return; }
+  if (!f.titulo || !f.cliente || f.soluciones.length === 0) { showError(errEl, 'Título, cliente y solución son obligatorios.'); return; }
   const oversized = f.attachFiles.find(file => file.size > MAX_ATTACH_MB * 1024 * 1024);
   if (oversized) { showError(errEl, `"${oversized.name}" supera ${MAX_ATTACH_MB}MB.`); return; }
 
@@ -699,7 +701,7 @@ async function submitNewProject() {
   };
 
   const project = {
-    id: newId(), titulo: f.titulo, cliente: f.cliente, solucion: f.solucion,
+    id: newId(), titulo: f.titulo, cliente: f.cliente, soluciones: f.soluciones,
     fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
     tecnologias: f.tecnologias, contactos: f.contactos, images: [], attachments: [],
   };
@@ -748,7 +750,7 @@ async function submitProjectEdit(projectId, originalImages, originalAttachments)
   const statusEl = document.getElementById('pf-status');
   const submitBtn = document.getElementById('pf-submit');
 
-  if (!f.titulo || !f.cliente || !f.solucion) { showError(errEl, 'Título, cliente y solución son obligatorios.'); return; }
+  if (!f.titulo || !f.cliente || f.soluciones.length === 0) { showError(errEl, 'Título, cliente y solución son obligatorios.'); return; }
   const oversized = f.attachFiles.find(file => file.size > MAX_ATTACH_MB * 1024 * 1024);
   if (oversized) { showError(errEl, `"${oversized.name}" supera ${MAX_ATTACH_MB}MB.`); return; }
 
@@ -807,10 +809,11 @@ async function submitProjectEdit(projectId, originalImages, originalAttachments)
 
     const updated = {
       ...data.projects[idx],
-      titulo: f.titulo, cliente: f.cliente, solucion: f.solucion,
+      titulo: f.titulo, cliente: f.cliente, soluciones: f.soluciones,
       fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
       tecnologias: f.tecnologias, contactos: f.contactos, images: newImages, attachments: newAttachments,
     };
+    delete updated.solucion; // migración del campo legado (string única) al array `soluciones`
     data.projects[idx] = updated;
 
     await ghPutTextFile('projects.json', JSON.stringify(data, null, 2), existing.sha, `Update project: ${f.titulo}`, cfg);
