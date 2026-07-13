@@ -253,6 +253,7 @@ body.unlocked .site-gate { display: none; }
 }
 .badge-cliente { background: var(--raona-dark); color: #fff; }
 .badge-industria { background: var(--raona-light); color: var(--raona-dark-2); }
+.badge-caso-exito { background: var(--raona-orange); color: #fff; }
 .badge-solucion { background: #fff2e6; color: var(--raona-orange-d); border: 1px solid #ffd9b3; }
 
 .card-title { font-size: 16px; font-weight: 600; margin: 2px 0 0; color: var(--raona-dark); line-height: 1.35; }
@@ -368,6 +369,12 @@ body.unlocked .site-gate { display: none; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
 
 .form-group { margin-bottom: 14px; }
+.form-checkbox-group { display: flex; align-items: center; }
+.form-checkbox-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13.5px; font-weight: 600; color: var(--raona-dark-2); cursor: pointer;
+}
+.form-checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--raona-orange); cursor: pointer; }
 .form-row { display: flex; gap: 14px; }
 .form-row .form-group { flex: 1; }
 .form-label { display: block; font-size: 12.5px; font-weight: 700; color: var(--raona-dark-2); margin-bottom: 6px; }

@@ -38,6 +38,7 @@ const state = {
   activeSolution:  'Todos',
   activeTech:      'Todos',
   activeIndustry:  'Todos',
+  activeCase:      'Todos',
   search:          '',
   failedAttempts:  0,
   lockoutUntil:    null,
@@ -239,12 +240,14 @@ function renderFilters() {
   const solutionEl = document.getElementById('solution-filters');
   const techEl      = document.getElementById('tech-filters');
   const industryEl  = document.getElementById('industry-filters');
+  const caseEl      = document.getElementById('case-filters');
   const addBtn      = document.getElementById('add-project-btn');
 
   const clientes   = ['Todos', ...new Set(state.projects.map(p => p.cliente).filter(Boolean))];
   const soluciones = ['Todos', ...new Set(state.projects.flatMap(p => p.soluciones || []).filter(Boolean))];
   const tecnologias = ['Todos', ...new Set(state.projects.flatMap(p => p.tecnologias || []).filter(Boolean))];
   const industrias  = ['Todos', ...new Set(state.projects.map(p => p.industria).filter(Boolean))];
+  const casos       = ['Todos', 'Sí', 'No'];
 
   clientEl.innerHTML = clientes.map(c => `
     <button class="filter-chip${c === state.activeClient ? ' active' : ''}" data-client="${escHtml(c)}">${escHtml(c)}</button>
@@ -257,6 +260,9 @@ function renderFilters() {
   `).join('');
   industryEl.innerHTML = industrias.map(i => `
     <button class="filter-chip${i === state.activeIndustry ? ' active' : ''}" data-industry="${escHtml(i)}">${escHtml(i)}</button>
+  `).join('');
+  caseEl.innerHTML = casos.map(c => `
+    <button class="filter-chip${c === state.activeCase ? ' active' : ''}" data-case="${escHtml(c)}">${escHtml(c)}</button>
   `).join('');
 
   clientEl.querySelectorAll('.filter-chip').forEach(btn => {
@@ -271,6 +277,9 @@ function renderFilters() {
   industryEl.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => { state.activeIndustry = btn.dataset.industry; renderFilters(); renderProjects(); });
   });
+  caseEl.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => { state.activeCase = btn.dataset.case; renderFilters(); renderProjects(); });
+  });
 
   addBtn.hidden = !isEditorActive();
 }
@@ -281,6 +290,7 @@ function filteredProjects() {
     if (state.activeSolution !== 'Todos' && !(p.soluciones || []).includes(state.activeSolution)) return false;
     if (state.activeTech !== 'Todos' && !(p.tecnologias || []).includes(state.activeTech)) return false;
     if (state.activeIndustry !== 'Todos' && p.industria !== state.activeIndustry) return false;
+    if (state.activeCase !== 'Todos' && Boolean(p.casoExito) !== (state.activeCase === 'Sí')) return false;
     if (state.search) {
       const q = state.search.toLowerCase();
       const hay = [p.titulo, p.cliente, p.industria, ...(p.soluciones || []), stripHtml(p.descripcion), ...(p.tecnologias || [])]
@@ -331,6 +341,7 @@ function buildCardHTML(project, idx) {
       ${editBtn}${delBtn}${img}
       <div class="card-body">
         <div class="card-badges">
+          ${project.casoExito ? `<span class="badge badge-caso-exito">★ Caso de éxito</span>` : ''}
           ${project.cliente ? `<span class="badge badge-cliente">${escHtml(project.cliente)}</span>` : ''}
           ${project.industria ? `<span class="badge badge-industria">${escHtml(project.industria)}</span>` : ''}
           ${solutionBadges}
@@ -485,6 +496,7 @@ function showProjectDetailModal(projectId) {
     <div class="detail-body">
       <button class="detail-close" onclick="hideModal()" aria-label="Cerrar">×</button>
       <div class="detail-meta">
+        ${project.casoExito ? `<span class="badge badge-caso-exito">★ Caso de éxito</span>` : ''}
         ${project.cliente ? `<span class="badge badge-cliente">${escHtml(project.cliente)}</span>` : ''}
         ${project.industria ? `<span class="badge badge-industria">${escHtml(project.industria)}</span>` : ''}
         ${solutionBadges}
@@ -549,6 +561,12 @@ function showProjectFormModal(existingProject) {
     <div class="form-group">
       <label class="form-label" for="pf-titulo">Título <span class="req">*</span></label>
       <input id="pf-titulo" type="text" class="form-input" placeholder="Nombre del proyecto" value="${escHtml(p.titulo || '')}" />
+    </div>
+    <div class="form-group form-checkbox-group">
+      <label class="form-checkbox-label">
+        <input id="pf-caso-exito" type="checkbox" ${p.casoExito ? 'checked' : ''} />
+        ¿Es un caso de éxito?
+      </label>
     </div>
     <div class="form-row">
       <div class="form-group">
@@ -686,6 +704,7 @@ function readContactsFromForm() {
 function readProjectFormFields() {
   return {
     titulo:  document.getElementById('pf-titulo').value.trim(),
+    casoExito: document.getElementById('pf-caso-exito').checked,
     cliente: document.getElementById('pf-cliente').value.trim(),
     industria: document.getElementById('pf-industria').value.trim(),
     soluciones: document.getElementById('pf-solucion').value.trim().split(',').map(s => s.trim()).filter(Boolean),
@@ -720,7 +739,7 @@ async function submitNewProject() {
   };
 
   const project = {
-    id: newId(), titulo: f.titulo, cliente: f.cliente, industria: f.industria || null, soluciones: f.soluciones,
+    id: newId(), titulo: f.titulo, casoExito: f.casoExito, cliente: f.cliente, industria: f.industria || null, soluciones: f.soluciones,
     fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
     tecnologias: f.tecnologias, contactos: f.contactos, images: [], attachments: [],
   };
@@ -828,7 +847,7 @@ async function submitProjectEdit(projectId, originalImages, originalAttachments)
 
     const updated = {
       ...data.projects[idx],
-      titulo: f.titulo, cliente: f.cliente, industria: f.industria || null, soluciones: f.soluciones,
+      titulo: f.titulo, casoExito: f.casoExito, cliente: f.cliente, industria: f.industria || null, soluciones: f.soluciones,
       fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
       tecnologias: f.tecnologias, contactos: f.contactos, images: newImages, attachments: newAttachments,
     };
