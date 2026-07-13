@@ -8,7 +8,7 @@
         "Communication Hub"
       ],
       "fecha": null,
-      "link": null,
+      "link": "https://www.acsyslatam.com/",
       "descripcion": "<p>Intranet corporativa orientada a centralizar comunicaciones internas, contenidos corporativos y colaboración entre áreas.</p>",
       "tecnologias": [
         "EAMI",
@@ -32,7 +32,8 @@
       "images": [
         "images/mrj7nwn2scma_0.png"
       ],
-      "attachments": []
+      "attachments": [],
+      "industria": "Tecnología"
     },
     {
       "id": "mrj7sqymk3c9",
