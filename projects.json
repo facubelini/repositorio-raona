@@ -254,6 +254,41 @@
         "images/mrj8x19t36n3_0.png"
       ],
       "attachments": []
+    },
+    {
+      "id": "mrj945phkjd6",
+      "titulo": "Tesacom - Consultoría en Sharepoint y Power Platform",
+      "cliente": "Tesacom",
+      "soluciones": [
+        "Consultoría Sharepoint",
+        "Consultoría Power Platform"
+      ],
+      "fecha": null,
+      "link": "https://www.tesacom.net/",
+      "descripcion": "<p>Consultoría especializada en SharePoint y Power Platform. Resolución de incidentes complejos en catálogos SharePoint, automatizaciones con Power Automate, mejoras en gestión documental y desarrollo de un portal Wiki corporativo para gestión del conocimiento. </p>",
+      "tecnologias": [
+        "SharePoint",
+        "Power Automate",
+        "Power Platform"
+      ],
+      "contactos": [
+        {
+          "nombre": "Marcelo Marinangeli",
+          "puesto": ""
+        },
+        {
+          "nombre": "Martin Luis",
+          "puesto": ""
+        },
+        {
+          "nombre": "Matias Reynaldo",
+          "puesto": ""
+        }
+      ],
+      "images": [
+        "images/mrj945phkjd6_0.jpg"
+      ],
+      "attachments": []
     }
   ]
 }
