@@ -227,36 +227,12 @@
         "Teams",
         "Power BI"
       ],
-      "contactos": [
-        {
-          "nombre": "Juan Pablo Pomadoro",
-          "puesto": ""
-        },
-        {
-          "nombre": "Ma. Florencia Bertone",
-          "puesto": ""
-        },
-        {
-          "nombre": "Sofia Garaguso",
-          "puesto": ""
-        },
-        {
-          "nombre": "Mauricio Baldovino",
-          "puesto": ""
-        },
-        {
-          "nombre": "Esteban Rivera",
-          "puesto": ""
-        },
-        {
-          "nombre": "Damián Alejandro Iñiguez",
-          "puesto": ""
-        }
-      ],
+      "contactos": [],
       "images": [
         "images/mrj8x19t36n3_0.png"
       ],
-      "attachments": []
+      "attachments": [],
+      "industria": "Agro"
     },
     {
       "id": "mrj945phkjd6",
