@@ -252,6 +252,7 @@ body.unlocked .site-gate { display: none; }
   border-radius: 5px;
 }
 .badge-cliente { background: var(--raona-dark); color: #fff; }
+.badge-industria { background: var(--raona-light); color: var(--raona-dark-2); }
 .badge-solucion { background: #fff2e6; color: var(--raona-orange-d); border: 1px solid #ffd9b3; }
 
 .card-title { font-size: 16px; font-weight: 600; margin: 2px 0 0; color: var(--raona-dark); line-height: 1.35; }

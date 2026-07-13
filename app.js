@@ -37,6 +37,7 @@ const state = {
   activeClient:    'Todos',
   activeSolution:  'Todos',
   activeTech:      'Todos',
+  activeIndustry:  'Todos',
   search:          '',
   failedAttempts:  0,
   lockoutUntil:    null,
@@ -237,11 +238,13 @@ function renderFilters() {
   const clientEl   = document.getElementById('client-filters');
   const solutionEl = document.getElementById('solution-filters');
   const techEl      = document.getElementById('tech-filters');
+  const industryEl  = document.getElementById('industry-filters');
   const addBtn      = document.getElementById('add-project-btn');
 
   const clientes   = ['Todos', ...new Set(state.projects.map(p => p.cliente).filter(Boolean))];
   const soluciones = ['Todos', ...new Set(state.projects.flatMap(p => p.soluciones || []).filter(Boolean))];
   const tecnologias = ['Todos', ...new Set(state.projects.flatMap(p => p.tecnologias || []).filter(Boolean))];
+  const industrias  = ['Todos', ...new Set(state.projects.map(p => p.industria).filter(Boolean))];
 
   clientEl.innerHTML = clientes.map(c => `
     <button class="filter-chip${c === state.activeClient ? ' active' : ''}" data-client="${escHtml(c)}">${escHtml(c)}</button>
@@ -251,6 +254,9 @@ function renderFilters() {
   `).join('');
   techEl.innerHTML = tecnologias.map(t => `
     <button class="filter-chip${t === state.activeTech ? ' active' : ''}" data-tech="${escHtml(t)}">${escHtml(t)}</button>
+  `).join('');
+  industryEl.innerHTML = industrias.map(i => `
+    <button class="filter-chip${i === state.activeIndustry ? ' active' : ''}" data-industry="${escHtml(i)}">${escHtml(i)}</button>
   `).join('');
 
   clientEl.querySelectorAll('.filter-chip').forEach(btn => {
@@ -262,6 +268,9 @@ function renderFilters() {
   techEl.querySelectorAll('.filter-chip').forEach(btn => {
     btn.addEventListener('click', () => { state.activeTech = btn.dataset.tech; renderFilters(); renderProjects(); });
   });
+  industryEl.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => { state.activeIndustry = btn.dataset.industry; renderFilters(); renderProjects(); });
+  });
 
   addBtn.hidden = !isEditorActive();
 }
@@ -271,9 +280,10 @@ function filteredProjects() {
     if (state.activeClient !== 'Todos' && p.cliente !== state.activeClient) return false;
     if (state.activeSolution !== 'Todos' && !(p.soluciones || []).includes(state.activeSolution)) return false;
     if (state.activeTech !== 'Todos' && !(p.tecnologias || []).includes(state.activeTech)) return false;
+    if (state.activeIndustry !== 'Todos' && p.industria !== state.activeIndustry) return false;
     if (state.search) {
       const q = state.search.toLowerCase();
-      const hay = [p.titulo, p.cliente, ...(p.soluciones || []), stripHtml(p.descripcion), ...(p.tecnologias || [])]
+      const hay = [p.titulo, p.cliente, p.industria, ...(p.soluciones || []), stripHtml(p.descripcion), ...(p.tecnologias || [])]
         .filter(Boolean).join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
     }
@@ -322,6 +332,7 @@ function buildCardHTML(project, idx) {
       <div class="card-body">
         <div class="card-badges">
           ${project.cliente ? `<span class="badge badge-cliente">${escHtml(project.cliente)}</span>` : ''}
+          ${project.industria ? `<span class="badge badge-industria">${escHtml(project.industria)}</span>` : ''}
           ${solutionBadges}
         </div>
         <h2 class="card-title">${escHtml(project.titulo)}</h2>
@@ -475,6 +486,7 @@ function showProjectDetailModal(projectId) {
       <button class="detail-close" onclick="hideModal()" aria-label="Cerrar">×</button>
       <div class="detail-meta">
         ${project.cliente ? `<span class="badge badge-cliente">${escHtml(project.cliente)}</span>` : ''}
+        ${project.industria ? `<span class="badge badge-industria">${escHtml(project.industria)}</span>` : ''}
         ${solutionBadges}
         ${project.fecha ? `<time class="card-date">${formatDate(project.fecha)}</time>` : ''}
       </div>
@@ -502,6 +514,7 @@ function showProjectFormModal(existingProject) {
 
   const existingContacts = p.contactos || [];
   const clientesDatalist  = [...new Set(state.projects.map(x => x.cliente).filter(Boolean))];
+  const industriasDatalist = [...new Set(state.projects.map(x => x.industria).filter(Boolean))];
   const solucionesDatalist = [...new Set(state.projects.flatMap(x => x.soluciones || []).filter(Boolean))];
 
   const existingImgsHTML = isEdit && existingImages.length > 0 ? `
@@ -551,13 +564,18 @@ function showProjectFormModal(existingProject) {
     </div>
     <div class="form-row">
       <div class="form-group">
+        <label class="form-label" for="pf-industria">Industria <span class="hint">(opcional)</span></label>
+        <input id="pf-industria" type="text" class="form-input" list="pf-industrias-list" placeholder="Ej: Banca, Energía, Retail…" value="${escHtml(p.industria || '')}" />
+        <datalist id="pf-industrias-list">${industriasDatalist.map(i => `<option value="${escHtml(i)}">`).join('')}</datalist>
+      </div>
+      <div class="form-group">
         <label class="form-label" for="pf-fecha">Fecha <span class="hint">(opcional)</span></label>
         <input id="pf-fecha" type="month" class="form-input" value="${escHtml(p.fecha || '')}" />
       </div>
-      <div class="form-group">
-        <label class="form-label" for="pf-link">Enlace <span class="hint">(demo, repo… opcional)</span></label>
-        <input id="pf-link" type="url" class="form-input" placeholder="https://…" value="${escHtml(p.link || '')}" />
-      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="pf-link">Enlace <span class="hint">(demo, repo… opcional)</span></label>
+      <input id="pf-link" type="url" class="form-input" placeholder="https://…" value="${escHtml(p.link || '')}" />
     </div>
     <div class="form-group">
       <label class="form-label">Descripción</label>
@@ -669,6 +687,7 @@ function readProjectFormFields() {
   return {
     titulo:  document.getElementById('pf-titulo').value.trim(),
     cliente: document.getElementById('pf-cliente').value.trim(),
+    industria: document.getElementById('pf-industria').value.trim(),
     soluciones: document.getElementById('pf-solucion').value.trim().split(',').map(s => s.trim()).filter(Boolean),
     fecha:   document.getElementById('pf-fecha').value,
     link:    document.getElementById('pf-link').value.trim(),
@@ -701,7 +720,7 @@ async function submitNewProject() {
   };
 
   const project = {
-    id: newId(), titulo: f.titulo, cliente: f.cliente, soluciones: f.soluciones,
+    id: newId(), titulo: f.titulo, cliente: f.cliente, industria: f.industria || null, soluciones: f.soluciones,
     fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
     tecnologias: f.tecnologias, contactos: f.contactos, images: [], attachments: [],
   };
@@ -809,7 +828,7 @@ async function submitProjectEdit(projectId, originalImages, originalAttachments)
 
     const updated = {
       ...data.projects[idx],
-      titulo: f.titulo, cliente: f.cliente, soluciones: f.soluciones,
+      titulo: f.titulo, cliente: f.cliente, industria: f.industria || null, soluciones: f.soluciones,
       fecha: f.fecha || null, link: f.link || null, descripcion: f.descripcion,
       tecnologias: f.tecnologias, contactos: f.contactos, images: newImages, attachments: newAttachments,
     };
