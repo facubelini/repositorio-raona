@@ -281,7 +281,9 @@
       "images": [
         "images/mrj945phkjd6_0.jpg"
       ],
-      "attachments": []
+      "attachments": [],
+      "casoExito": false,
+      "industria": "Telecomunicaciones"
     },
     {
       "id": "mrjb0ad4knhp",
