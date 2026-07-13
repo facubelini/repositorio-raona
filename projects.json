@@ -124,6 +124,31 @@
         "images/mrj86o5oa069_0.png"
       ],
       "attachments": []
+    },
+    {
+      "id": "mrj8af96xkhi",
+      "titulo": "Quintero Energía - Migración, Automatización y Desarrollos personalizados",
+      "cliente": "Quintero Energía",
+      "solucion": "Migración, Automatización, Desarrollo personalizado",
+      "fecha": null,
+      "link": "https://quinteroenergia.cl/",
+      "descripcion": "<p>Migración de Bitácoras ROCC, automatización de procesos operativos y desarrollos personalizados sobre Microsoft 365.</p>",
+      "tecnologias": [
+        "SharePoint",
+        "Power Apps",
+        "Flujos",
+        "Migración M365"
+      ],
+      "contactos": [
+        {
+          "nombre": "Marcia González",
+          "puesto": ""
+        }
+      ],
+      "images": [
+        "images/mrj8af96xkhi_0.svg"
+      ],
+      "attachments": []
     }
   ]
 }
