@@ -12,7 +12,7 @@
       "descripcion": "<p>Intranet corporativa orientada a centralizar comunicaciones internas, contenidos corporativos y colaboración entre áreas.</p>",
       "tecnologias": [
         "EAMI",
-        "Sharepoint",
+        "SharePoint",
         "Power Platform"
       ],
       "contactos": [
@@ -33,7 +33,8 @@
         "images/mrj7nwn2scma_0.png"
       ],
       "attachments": [],
-      "industria": "Tecnología"
+      "industria": "Tecnología",
+      "casoExito": false
     },
     {
       "id": "mrj7sqymk3c9",
