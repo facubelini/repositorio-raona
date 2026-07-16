@@ -113,7 +113,7 @@
       "descripcion": "<p>Portal de ventas corporativas, automatización de procesos y dashboards de negocio utilizando SharePoint, Power Platform y Power BI.</p><p><br></p><h3>Portal de Ventas – Caso de éxito Havanna</h3><p><br></p><p><strong>De qué se trata</strong></p><p>Raona desarrolló para Havanna un portal de ventas corporativo basado en SharePoint, pensado para facilitar el trabajo diario de los equipos. La herramienta centraliza la información, automatiza procesos y simplifica el acceso a documentos, superando las limitaciones de los procesos manuales y la dispersión de datos que frenaban el rendimiento.</p><p><br></p><p><strong>El cliente</strong></p><p>Havanna es una de las marcas más representativas de la repostería argentina, conocida por sus icónicos alfajores. Fundada en 1948 en Mar del Plata, ha preservado su esencia artesanal combinando tradición y calidad, evolucionando para adaptarse al mercado y consolidándose como un referente presente en numerosas partes del mundo.</p><p><br></p><p><strong>El desafío</strong></p><p>Tres problemas centrales frenaban la operación: lentitud en procesos manuales que consumían tiempo y provocaban errores, información dispersa (datos de clientes distribuidos en múltiples plataformas) y documentos desordenados sin una estructura clara que dificultaban el acceso y la colaboración entre equipos.</p><p><br></p><p><strong>La solución</strong></p><p>Un portal único basado en SharePoint que integra toda la información en un solo lugar, con notificaciones automáticas que permiten el seguimiento en tiempo real de cada fase del proceso, reduciendo tiempos y errores. Incluye una sección específica para cargar, consultar y gestionar documentos de forma sencilla, además de funcionalidades para registrar razones sociales, completar información impositiva, consultar y aprobar cotizaciones, descargar facturas e informar pagos.</p><p><br></p><p><strong>Los números conseguidos</strong></p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>105</strong> clientes registrados en el portal</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>123</strong> razones sociales (empresas diferentes) registradas</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>174</strong> cotizaciones realizadas a través del portal</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><strong>150</strong> pedidos en los dos primeros meses desde la implementación</li></ol><p><br></p><p><strong>La voz del cliente</strong></p><p>Juan Cruz Correa Urquiza (Jefe de Nuevos Negocios) explica que buscaban una herramienta para seguir escalando en ventas, ordenando la parte administrativa e impositiva de los clientes y accediendo a datos de venta reales en tiempo real sin cruzar variables a mano. Destaca que el portal ordenó la interacción con los clientes, minimizando errores manuales y eliminando procesos administrativos tediosos en el alta de clientes, cobranzas y gestión de cotizaciones.</p>",
       "tecnologias": [
         "Sharepoint Framework",
-        "Sharepoint",
+        "SharePoint",
         "Power Platform",
         "Power BI",
         "Planner"
@@ -142,8 +142,8 @@
           "size": 747628
         },
         {
-          "name": "Caso_Havanna_-_Portal_de_Ventas.pptx",
           "path": "attachments/portal-de-ventas-havanna-mrj86o5oa069/Caso_Havanna_-_Portal_de_Ventas.pptx",
+          "name": "Caso_Havanna_-_Portal_de_Ventas.pptx",
           "size": 70976
         }
       ],
