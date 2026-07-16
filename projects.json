@@ -423,6 +423,36 @@
           "size": 423842
         }
       ]
+    },
+    {
+      "id": "mrno8omp4458",
+      "titulo": "Vicuña - Regalos empresariales",
+      "casoExito": false,
+      "cliente": "Vicuña",
+      "industria": "Minería",
+      "soluciones": [
+        "Power Apps"
+      ],
+      "fecha": null,
+      "link": "https://vicuna.com/",
+      "descripcion": "<p><span style=\"background-color: rgb(255, 255, 255); color: rgb(36, 36, 36);\">Desarrollo de Power Apps Canvas \"Regalos empresariales\"</span></p>",
+      "tecnologias": [
+        "Power Apps Canvas"
+      ],
+      "contactos": [
+        {
+          "nombre": "Marcelo Sambrizzi",
+          "puesto": "Gerente de sistemas"
+        },
+        {
+          "nombre": "Diego Di Giacomo",
+          "puesto": "Director de Legales"
+        }
+      ],
+      "images": [
+        "images/mrno8omp4458_0.webp"
+      ],
+      "attachments": []
     }
   ]
 }
