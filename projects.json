@@ -453,6 +453,38 @@
         "images/mrno8omp4458_0.webp"
       ],
       "attachments": []
+    },
+    {
+      "id": "mrnoc4w1r5n3",
+      "titulo": "YPF - Células Sharepoint y Power Platform",
+      "casoExito": false,
+      "cliente": "YPF",
+      "industria": "Energía",
+      "soluciones": [
+        "Consultoría Power Platform",
+        "Sharepoint"
+      ],
+      "fecha": null,
+      "link": "https://ypf.com/",
+      "descripcion": "<p>Tenemos una <span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">célula de desarrollo Power Platform y célula de mantenimiento SharePoint.</span></p>",
+      "tecnologias": [
+        "Power Apps Canvas",
+        "Model Driven",
+        "Power Bi",
+        "RPA",
+        "Power Automate",
+        "Sharepoint"
+      ],
+      "contactos": [
+        {
+          "nombre": "Daniel Converti",
+          "puesto": ""
+        }
+      ],
+      "images": [
+        "images/mrnoc4w1r5n3_0.jpg"
+      ],
+      "attachments": []
     }
   ]
 }
